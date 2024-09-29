@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>יוצר קישורים גיאוגרפיים רספונסיבי</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="latitude">קו רוחב:</label>
+        <input type="text" id="latitude">
+        <label for="longitude">קו אורך:</label>
+        <input type="text" id="longitude">
+        <label for="locationName">שם המיקום (אופציונלי):</label>
+        <input type="text" id="locationName">
+        <button onclick="createGeoLink()">צור קישור</button>
+    </form>
+    <p>הקישור שלך:</p>
+    <a id="link" href="#" target="_blank">לחץ כאן כדי לפתוח במפה</a>
+
+    <script>
+        function createGeoLink() {
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            const locationName = document.getElementById('locationName').value;
+
+            let geoLink = `geo:${latitude},${longitude}`;
+
+            // אם הוזן שם למיקום, נוסיף אותו לקישור
+            if (locationName) {
+                geoLink += `?q=${encodeURIComponent(locationName)}`;
+            }
+
+            // עדכן את תכונת href של האלמנט <a>
+            document.getElementById('link').href = geoLink;
+        }
+        
+        alert(geoLink)
+    </script>
+</body>
+</html>
