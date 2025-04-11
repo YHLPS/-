@@ -1289,21 +1289,18 @@ function myController($anchorScroll, $location, $scope) {
 	// init from localStorage
 
 	function document_ready() {
-ctrl.removeAll();
+
 if(window.localStorage){
-	        
-	
-		
+		var myLst = JSON.parse(window.localStorage.getItem(myLstKey));
+
+		ctrl.myLst = myLst;
 
 		//console.log('document.ready, myLst', myLst, ctrl.myLst);
 }
-else if (localStorage){
-alert("there is local storage");
-}
+else if (localStorage){ctrl.myLst = [];
+alert("there is local storage")}
 
-else{
-     alert("no local storage");
-}
+else{ctrl.myLst = [];alert("no local storage")}
 	}
 
 	document_ready();
