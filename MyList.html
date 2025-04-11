@@ -1284,16 +1284,17 @@ function myController($anchorScroll, $location, $scope) {
 
 	];
 
-ctrl.removeAll = function () {
+                ctrl.removeAll = function () {
 
-		ctrl.myLst = [];
+		         ctrl.myLst = [];
 
 		}
+	        ctrl.removeAll();
 
 	// init from localStorage
 
 	function document_ready() {
-ctrl.removeAll();
+
 if(window.localStorage){
 		var myLst = JSON.parse(window.localStorage.getItem(myLstKey));
 
