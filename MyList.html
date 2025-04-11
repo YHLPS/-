@@ -1284,7 +1284,11 @@ function myController($anchorScroll, $location, $scope) {
 
 	];
 
+ctrl.removeAll = function () {
 
+		ctrl.myLst = [];
+
+		}
 
 	// init from localStorage
 
@@ -1554,14 +1558,6 @@ else{ctrl.myLst = [];alert("no local storage")}
 		}
 
 	}
-
-	ctrl.removeAll = function () {
-
-		ctrl.myLst = [];
-
-	}
-
-
 
 	function watch_myLst(newVal, oldVal) {
 
