@@ -1297,7 +1297,8 @@ if(window.localStorage){
 
 		//console.log('document.ready, myLst', myLst, ctrl.myLst);
 }
-else if (localStorage){alert("there is local storage")}
+else if (localStorage){ctrl.myLst = [];
+alert("there is local storage")}
 
 else{ctrl.myLst = [];alert("no local storage")}
 	}
