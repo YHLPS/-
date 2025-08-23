@@ -20,7 +20,37 @@
       }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="sketch.js"></script>
+    <script src="sketch.js">
+      // הגדרת הפונקציה setup, שרצה פעם אחת בתחילת התוכנית
+function setup() {
+  // יצירת קנבס בגודל 600x400 פיקסלים
+  createCanvas(600, 400);
+  // הגדרת צבע רקע אפור בהיר
+  background(220);
+  // הגדרת צבע מילוי (ללא קו מתאר)
+  noStroke();
+}
+
+// הגדרת הפונקציה draw, שרצה באופן חוזר ונשנה (ברירת מחדל 60 פריימים לשנייה)
+function draw() {
+  // הגדרת צבע מילוי אקראי, עם שקיפות
+  fill(random(255), random(255), random(255), 150);
+
+  // הגדרת מיקום וגודל אקראי של עיגול
+  let x = random(width); // קואורדינטת X אקראית בטווח רוחב הקנבס
+  let y = random(height); // קואורדינטת Y אקראית בטווח גובה הקנבס
+  let r = random(20, 100); // רדיוס אקראי בין 20 ל-100
+
+  // ציור עיגול במיקום ובגודל האקראי שהוגדרו
+  ellipse(x, y, r, r);
+}
+
+// הפונקציה mousePressed() מופעלת בכל לחיצה על העכבר
+function mousePressed() {
+  // בעת לחיצה על העכבר, הקנבס נמחק ונצבע מחדש בצבע רקע
+  background(220);
+}
+    </script>
   </head>
   <body></body>
 </html>
