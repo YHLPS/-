@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>שם הבלוג שלך</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Heebo:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      :root {
+  --primary-font: "Heebo", sans-serif;
+  --secondary-font: "Merriweather", serif;
+  --main-color: #333;
+  --link-color: #007bff;
+  --background-color: #f8f9fa;
+  --border-color: #e9ecef;
+}
+
+body {
+  font-family: var(--primary-font);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  color: var(--main-color);
+  background-color: var(--background-color);
+  direction: rtl; /* For right-to-left layout */
+  text-align: right;
+}
+
+.blog-header {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: white;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.blog-title {
+  font-family: var(--secondary-font);
+  font-size: 3.5rem; /* Large font for blog name */
+  font-weight: 700;
+  margin: 0;
+  color: #212529;
+}
+
+.blog-main {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.blog-post {
+  background-color: white;
+  padding: 30px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.post-title {
+  font-family: var(--primary-font);
+  font-size: 2rem; /* Medium-large font for article titles */
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #343a40;
+}
+
+.post-meta {
+  font-size: 0.9rem; /* Small font for metadata */
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.post-excerpt {
+  font-size: 1.1rem; /* Standard font size for body text */
+  margin-bottom: 15px;
+}
+
+.read-more {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.read-more:hover {
+  color: #0056b3;
+}
+
+.blog-footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  color: #6c757d;
+  border-top: 1px solid var(--border-color);
+  margin-top: 40px;
+}
+    </style>
+  </head>
+  <body>
+    <header class="blog-header">
+      <h1 class="blog-title">שם הבלוג שלך</h1>
+    </header>
+
+    <main class="blog-main">
+      <article class="blog-post">
+        <h2 class="post-title">כותרת הפוסט הראשון</h2>
+        <p class="post-meta">פורסם בתאריך 24 באוגוסט 2025</p>
+        <p class="post-excerpt">
+          זהו תקציר קצר של הפוסט הראשון בבלוג. כאן יופיעו כמה משפטים שנותנים לקוראים טעימה של התוכן,
+          כדי לעודד אותם להיכנס ולקרוא את הפוסט המלא.
+        </p>
+        <a href="#" class="read-more">קרא עוד »</a>
+      </article>
+
+      <article class="blog-post">
+        <h2 class="post-title">כותרת הפוסט השני</h2>
+        <p class="post-meta">פורסם בתאריך 23 באוגוסט 2025</p>
+        <p class="post-excerpt">
+          זהו תקציר קצר של הפוסט השני. תוכל לשנות את הטקסט הזה כדי להתאים אותו לפוסט שלך
+          ולהציג לקוראים את התוכן בצורה מושכת ומסקרנת.
+        </p>
+        <a href="#" class="read-more">קרא עוד »</a>
+      </article>
+    </main>
+
+    <footer class="blog-footer">
+      <p>כל הזכויות שמורות &copy; 2025</p>
+    </footer>
+  </body>
+</html>
