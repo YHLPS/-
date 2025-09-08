@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My-Text Logo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="400" height="200"></canvas>
+
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawLogo() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Set font for "My"
+        ctx.font = 'bold 80px Arial, sans-serif';
+        ctx.fillStyle = '#4A90E2'; // A vibrant blue color
+        ctx.textAlign = 'right';
+
+        // Draw "My"
+        ctx.fillText('My', 190, 120);
+
+        // Set font for "-Text"
+        ctx.font = 'bold 80px Arial, sans-serif';
+        ctx.fillStyle = '#333333'; // Dark gray color
+        ctx.textAlign = 'left';
+
+        // Draw "-Text"
+        ctx.fillText('-Text', 200, 120);
+    }
+
+    drawLogo();
+</script>
+
+</body>
+</html>
