@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תיעוד אירועי מקלדת ודף</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            direction: rtl; /* יישור מימין לשמאל */
+            text-align: right;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        #keyboard-event-display {
+            background-color: #e8f5e9;
+        }
+
+        #general-event-log {
+            background-color: #e3f2fd;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* כדי שה-padding לא יגדיל את רוחב ה-input */
+            margin-bottom: 10px;
+        }
+
+        #output {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 50px;
+            white-space: pre-wrap; /* שומר על מעברי שורה */
+        }
+
+        #log-area {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: scroll; /* מאפשר גלילה אנכית */
+            white-space: pre-wrap;
+        }
+
+        .event-item {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>דוגמת תיעוד אירועים</h1>
+
+        <div id="keyboard-event-display" class="section">
+            <h2>אירועי מקלדת בתיבת הקלט</h2>
+            <p>הקלידו בתיבה הבאה כדי לראות את פרטי האירוע.</p>
+            <input type="text" id="myInput" placeholder="התחילו להקליד כאן...">
+            
+            <h3>פרטי האירוע הנוכחי:</h3>
+            <div id="output">
+                התחילו להקליד כדי לראות את פרטי האירוע...
+            </div>
+        </div>
+
+        <div id="general-event-log" class="section">
+            <h2>יומן אירועים כללי של הדף</h2>
+            <p>יומן זה מתעד כל אירוע שמתרחש בדף (כמו לחיצות עכבר, לחיצות מקלדת, פוקוס ועוד).</p>
+            <div id="log-area">
+                היומן ריק כעת. בצעו פעולות בדף כדי לראות את האירועים...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // אלמנטים עיקריים
+        const myInput = document.getElementById('myInput');
+        const outputDiv = document.getElementById('output');
+        const logArea = document.getElementById('log-area');
+        let logCounter = 1; // מונה לאירועים ביומן
+
+        /**
+         * פונקציה שמציגה הודעה ביומן האירועים הכללי.
+         * @param {string} eventName - שם האירוע (לדוגמה: 'click', 'keydown').
+         * @param {string} details - פרטים נוספים על האירוע.
+         */
+        function logEvent(eventName, details = '') {
+            const timeStamp = new Date().toLocaleTimeString();
+            const logMessage = document.createElement('div');
+            logMessage.className = 'event-item';
+            logMessage.innerHTML = `
+                <strong>אירוע #${logCounter}: ${eventName}</strong><br>
+                זמן: ${timeStamp}<br>
+                פרטים: ${details}
+            `;
+            logArea.prepend(logMessage); // מוסיף את האירוע בראש הרשימה
+            logCounter++;
+        }
+
+        // --- מטפלי אירועים עבור הקטע העליון (תיבת הקלט) ---
+
+        // אירוע 'keydown' בתיבת הקלט
+        myInput.addEventListener('keydown', (e) => {
+            // יצירת מחרוזת מפורטת עם מידע על לחיצת המקש
+            const keyDetails = `
+                לחצת על מקש!
+                תו: ${e.key}
+                קוד מקש: ${e.code}
+                האם נלחץ Alt? ${e.altKey}
+                האם נלחץ Ctrl? ${e.ctrlKey}
+                האם נלחץ Shift? ${e.shiftKey}
+                האם נלחץ Meta (Windows/Command)? ${e.metaKey}
+            `;
+            outputDiv.innerText = keyDetails;
+
+            // עדכון היומן הכללי (הקטע התחתון)
+            logEvent('keydown', `מקש: '${e.key}' נלחץ בתוך תיבת הקלט`);
+        });
+
+        // אירוע 'keyup' בתיבת הקלט
+        myInput.addEventListener('keyup', (e) => {
+            // ניקוי המידע לאחר שהמקש שוחרר
+            setTimeout(() => {
+                outputDiv.innerText = 'התחילו להקליד כדי לראות את פרטי האירוע...';
+            }, 500); // מנקה לאחר 500 מילישניות
+
+            // עדכון היומן הכללי
+            logEvent('keyup', `מקש: '${e.key}' שוחרר בתיבת הקלט`);
+        });
+
+        // אירוע 'focus' על תיבת הקלט
+        myInput.addEventListener('focus', () => {
+            logEvent('focus', 'תיבת הקלט קיבלה פוקוס');
+        });
+
+        // אירוע 'blur' על תיבת הקלט
+        myInput.addEventListener('blur', () => {
+            logEvent('blur', 'תיבת הקלט איבדה פוקוס');
+        });
+
+        // --- מטפלי אירועים כלליים עבור הדף כולו (הקטע התחתון) ---
+
+        // אירוע 'click' על כל מקום בדף
+        document.addEventListener('click', (e) => {
+            let targetInfo = e.target.tagName;
+            if (e.target.id) {
+                targetInfo += ` (ID: #${e.target.id})`;
+            }
+            logEvent('click', `לחיצת עכבר על אלמנט: ${targetInfo}`);
+        });
+
+        // אירוע 'dblclick'
+        document.addEventListener('dblclick', () => {
+            logEvent('dblclick', 'לחיצה כפולה על העכבר');
+        });
+        
+        // אירוע 'contextmenu' (לחיצה ימנית)
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault(); // מונע את פתיחת התפריט הרגיל של הדפדפן
+            logEvent('contextmenu', 'לחיצה ימנית על העכבר');
+        });
+
+        // אירוע 'DOMContentLoaded' - הדף נטען במלואו
+        document.addEventListener('DOMContentLoaded', () => {
+            logEvent('DOMContentLoaded', 'הדף נטען במלואו. ברוכים הבאים!');
+        });
+
+    </script>
+</body>
+</html>
