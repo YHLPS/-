@@ -108,6 +108,21 @@
         const logArea = document.getElementById('log-area');
         let logCounter = 1; // מונה לאירועים ביומן
 
+        const getKeyDetails = (e = KeyboardEvent.prototype) => {
+            const keyDetails = `
+                לחצת על מקש!
+                תו {key}: ${e.key}
+                קוד מקש {code}: ${e.code}
+                האם נלחץ Alt {altKey}? ${e.altKey}
+                האם נלחץ Ctrl {ctrlKey}? ${e.ctrlKey}
+                האם נלחץ Shift {shiftKey}? ${e.shiftKey}
+                האם נלחץ Meta (Windows/Command) {metaKey}? ${e.metaKey}
+            `;
+
+            return keyDetails;
+        }
+
+
         /**
          * פונקציה שמציגה הודעה ביומן האירועים הכללי.
          * @param {string} eventName - שם האירוע (לדוגמה: 'click', 'keydown').
@@ -131,30 +146,35 @@
         // אירוע 'keydown' בתיבת הקלט
         myInput.addEventListener('keydown', (e) => {
             // יצירת מחרוזת מפורטת עם מידע על לחיצת המקש
-            const keyDetails = `
+            /* const keyDetails = `
                 לחצת על מקש!
-                תו: ${e.key}
-                קוד מקש: ${e.code}
-                האם נלחץ Alt? ${e.altKey}
-                האם נלחץ Ctrl? ${e.ctrlKey}
-                האם נלחץ Shift? ${e.shiftKey}
-                האם נלחץ Meta (Windows/Command)? ${e.metaKey}
-            `;
+                תו {key}: ${e.key}
+                קוד מקש {code}: ${e.code}
+                האם נלחץ Alt {altKey}? ${e.altKey}
+                האם נלחץ Ctrl {ctrlKey}? ${e.ctrlKey}
+                האם נלחץ Shift {shiftKey}? ${e.shiftKey}
+                האם נלחץ Meta (Windows/Command) {metaKey}? ${e.metaKey}
+            `; */
+            const keyDetails = getKeyDetails(e);
             outputDiv.innerText = keyDetails;
 
             // עדכון היומן הכללי (הקטע התחתון)
-            logEvent('keydown', `מקש: '${e.key}' נלחץ בתוך תיבת הקלט`);
+            //logEvent('keydown', `מקש: '${e.key}' נלחץ בתוך תיבת הקלט`);
+            logEvent('keydown', keyDetails);
         });
 
         // אירוע 'keyup' בתיבת הקלט
         myInput.addEventListener('keyup', (e) => {
             // ניקוי המידע לאחר שהמקש שוחרר
             setTimeout(() => {
-                outputDiv.innerText = 'התחילו להקליד כדי לראות את פרטי האירוע...';
+                //outputDiv.innerText = 'התחילו להקליד כדי לראות את פרטי האירוע...';
             }, 500); // מנקה לאחר 500 מילישניות
 
+            const keyDetails = getKeyDetails(e);
+
             // עדכון היומן הכללי
-            logEvent('keyup', `מקש: '${e.key}' שוחרר בתיבת הקלט`);
+            //logEvent('keyup', `מקש: '${e.key}' שוחרר בתיבת הקלט`);
+            logEvent('keyup', keyDetails);
         });
 
         // אירוע 'focus' על תיבת הקלט
@@ -185,7 +205,7 @@
         
         // אירוע 'contextmenu' (לחיצה ימנית)
         document.addEventListener('contextmenu', (e) => {
-            e.preventDefault(); // מונע את פתיחת התפריט הרגיל של הדפדפן
+            //e.preventDefault(); // מונע את פתיחת התפריט הרגיל של הדפדפן
             logEvent('contextmenu', 'לחיצה ימנית על העכבר');
         });
 
