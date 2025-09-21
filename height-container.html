@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Height-Based Container with Sticky Elements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* הגדרה של קונטיינר הגובה הייעודי */
+        .height-container {
+            width: 80%; /* הגבלת הרוחב של הקונטיינר, לדוגמה */
+            height: 500px; /* הגדרת גובה ספציפי לקונטיינר */
+            margin: 50px auto; /* ממקם אותו במרכז העמוד */
+            border: 2px solid #0d6efd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* חותך תוכן שיוצא מהגבולות */
+        }
+
+        /* אלמנטים בתוך הקונטיינר */
+        .height-container header,
+        .height-container footer {
+            flex-shrink: 0; /* מונע מהם להתכווץ */
+        }
+
+        .height-container main {
+            flex-grow: 1; /* ממלא את כל השטח הפנוי שנותר */
+            overflow-y: auto; /* מאפשר גלילה רק בתוך אזור זה */
+            position: relative; /* נחוץ כדי שה-sticky יעבוד כראוי */
+        }
+        
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .sticky-footer {
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        /* כדי ליצור תוכן ארוך בתוך המיין */
+        .long-content {
+            height: 1000px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="height-container bg-light">
+        <header class="bg-primary text-white p-3 sticky-header">
+            <h3>כותרת דביקה (Header)</h3>
+          <a href="https://gemini.google.com/app/b8579f638aee2e4b"> <h2>gemini</h2></a>
+
+
+        </header>
+
+        <main class="p-3">
+            <h5 class="text-secondary">תוכן ראשי מתגלגל</h5>
+            <div class="long-content bg-secondary-subtle p-3">
+                <p>כאן מתחיל התוכן המתגלגל. גללו למטה כדי לראות את הפוטר הדביק.</p>
+                <p>הקונטיינר כולו מוגבל בגובה, ורק אזור ה-`main` גולל בתוכו.</p>
+            </div>
+        </main>
+
+        <footer class="bg-dark text-white p-3 sticky-footer">
+            <h3>פוטר דביק (Footer)</h3>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
