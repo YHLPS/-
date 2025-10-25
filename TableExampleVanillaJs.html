@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>יצירת טבלה באמצעות JavaScript טהור</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: right; /* יישור לימין עבור עברית */
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    table {
+      width: 50%; /* רוחב הטבלה */
+      border-collapse: collapse; /* איחוד גבולות */
+      margin-top: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* צל קטן */
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: right;
+    }
+    th {
+      background-color: #f2f2f2;
+      color: #333;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9; /* צבע שורה מתחלף */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>טבלת נתונים דינמית (Vanilla JS)</h1>
+  
+  <p>
+    <strong>מקור ומידע נוסף:</strong> <a href="https://www.freecodecamp.org/news/how-to-create-and-style-tables-with-vanilla-javascript/" target="_blank">How to Create and Style Tables with Vanilla JavaScript</a>
+  </p>
+
+  <div id="table-container">
+    </div>
+
+  <script>
+    // Step 1: Define your data
+    const data = [
+      { name: "פאהים", age: 25, job: "מהנדס תוכנה" },
+      { name: "שרה", age: 29, job: "מעצבת" },
+      { name: "דוד", age: 31, job: "מנהל" }
+    ];
+
+    // Step 2: Create a table element
+    const table = document.createElement("table");
+    // הסרנו את table.border = "1"; והוספנו עיצוב באמצעות CSS
+
+    // Step 3: Add headers
+    const headers = ["שם", "גיל", "תפקיד"];
+    const headerRow = document.createElement("tr");
+
+    headers.forEach(text => {
+      const th = document.createElement("th");
+      th.textContent = text;
+      headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
+
+    // Step 4: Add data rows
+    data.forEach(item => {
+      const row = document.createElement("tr");
+      // שימוש ב-Object.values על מנת לקבל את הערכים בסדר הנכון
+      Object.values(item).forEach(value => {
+        const cell = document.createElement("td");
+        cell.textContent = value;
+        row.appendChild(cell);
+      });
+      table.appendChild(row);
+    });
+
+    // Step 5: Insert the table into the DOM
+    const tableContainer = document.getElementById("table-container");
+    if (tableContainer) {
+      tableContainer.appendChild(table);
+    } else {
+      console.error("Element with ID 'table-container' not found.");
+    }
+  </script>
+
+</body>
+</html>
