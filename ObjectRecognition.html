@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>License Plate Detector</title>
+<style>
+/* Basic styling for the video and highlighter */
+video {
+width: 640px;
+height: 480px;
+}
+.highlighter {
+position: absolute;
+border: 2px solid green;
+}
+.message {
+position: absolute;
+top: 10px;
+right: 10px;
+background-color: rgba(0, 0, 0, 0.5);
+color: white;
+padding: 10px;
+border-radius: 5px;
+font-size: 18px;
+}
+</style>
+</head>
+<body>
+<input type="text" id="licensePlateInput" placeholder="Enter license plate number">
+<video id="video"></video>
+<div id="message"></div>
+
+<script>
+// Machine learning model initialization (replace with your actual model loading)
+const objectDetector = new ObjectDetector(); // Assuming you have an ObjectDetector class
+
+// Video element and canvas setup
+const video = document.getElementById('video');
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+
+// Start video and set canvas dimensions
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    video.srcObject = stream;
+    video.play();
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+  })
+  .catch(error => {
+    console.error('Error accessing video:', error);
+  });
+
+// License plate input handling
+const licensePlateInput = document.getElementById('licensePlateInput');
+const messageDiv = document.getElementById('message');
+
+// Function to check if the detected text matches the input license plate
+function checkLicensePlate(detectionText, inputPlate) {
+  return detectionText.toLowerCase().includes(inputPlate.toLowerCase());
+}
+
+// Function to draw the detected objects and highlight the license plate
+function drawDetections(result) {
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  for (let detection of result.detections) {
+    const { boundingBox } = detection;
+
+    ctx.strokeStyle = 'green';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(boundingBox.originX, boundingBox.originY, boundingBox.width, boundingBox.height);
+
+    if (checkLicensePlate(detection.categories[0].categoryName, licensePlateInput.value)) {
+      ctx.fillStyle = 'rgba(0, 255, 0, 0.5)';
+      ctx.fillRect(boundingBox.originX, boundingBox.originY, boundingBox.width, boundingBox.height);
+    }
+  }
+
+  // Update the message div based on the detection results
+  if (licensePlateInput.value !== '' && result.detections.length > 0) {
+    const isLicensePlateFound = result.detections.some(detection => checkLicensePlate(detection.categories[0].categoryName, licensePlateInput.value));
+    messageDiv.textContent = isLicensePlateFound ? 'License plate found!' : 'License plate not found.';
+  } else {
+    messageDiv.textContent = '';
+  }
+}
+
+// Main prediction loop
+async function predictWebcam() {
+  const detections = await objectDetector.detect(video);
+  drawDetections(detections);
+  window.requestAnimationFrame(predictWebcam);
+}
+
+// Start the prediction loop
+predictWebcam();
+</script>
+</body>
+</html>
